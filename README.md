@@ -28,11 +28,13 @@ A .mat file for DOSY data should be prepared before running the python code. Exa
 - train_DOSYEst.py is the code for setting and training the neural network model to generate the parameters for the fitting. 
 - examples.ipynb is the example code written in Jupyter Notebook to present how to use this neural-network-based optimizer and generate the parameters for DOSY spectra.
 
-After running the code (train_DOSYEst.py or examples.ipynb) with defaulted setting, a folder named "Net_Results" would be created and expanded with new results, including the estimated diffusion coefficients $D(l)$ and the spectral coefficients $C(l, f)$.
+After running the code (train_DOSYEst.py or examples.ipynb) with defaulted setting, a folder named "Net_Results" would be created and expanded with new results, including the estimated diffusion coefficients D(l) and the spectral coefficients C(l, f).
 
 
 ## Matlab Code (to show the DOSY spectrum in a prettier way)
 
-The Matlab code for spectrum display is included in the folder "Matlab_codes_for_spectra_drawing". 
+The Matlab code for spectrum display is included in the folder "Matlab_codes_for_spectra_display". 
 
-  
+## Others
+
+Email me if you have any questions: yuyang15@xmu.edu.cn
