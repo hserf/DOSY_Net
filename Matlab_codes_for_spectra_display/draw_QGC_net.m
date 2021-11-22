@@ -1,31 +1,22 @@
-%% showing the resulted spectrum for QGC
+%% showing the resulting spectrum for QGC
 clear all; close all;
 file_path = fileparts(mfilename('fullpath'));
 
-% load('..\data\QGC\QGC_net_input.mat');
-% load('..\data\QGC\tmp_part.mat');
-load('D:\my_work\mypaper\dosy_param\1st_revision\codes\data\QGC\QGC_net_input.mat');
+load('.\data\QGC\QGC_net_input.mat');
 Nf = length(ppm);
 
 is_mat_file = 0;
-% file_path = '..\Net_Results\QGC\';
-file_path = 'D:\my_work\mypaper\dosy_param\1st_revision\codes\Net_Results\QGC\';
+file_path = '.\Net_Results\QGC\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end).name],
-beta0 = 0.;
-% rr = median(S(:).^2)/median(max(S,[],2))*sqrt(size(S,2)),
-% 2/sum(max(S,[],2))*size(S,2),
+file_folder = [file_path,SubFolderNames(end).name],% Find the latest folder
+
+beta0 = 0.1;
 
 %% Read in the result
-if is_mat_file
-    % load([file_folder,'\net_output.mat']);
-    load([file_folder, '\net_output_1.mat']);
-else
-    dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
-    Sp_z = csvread([file_folder, '\Sp.csv']);
-    [N_iter, N_d] = size(dc_z);
-    N_freq = round(size(Sp_z,2)/N_d);
-end
+dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
+Sp_z = csvread([file_folder, '\Sp.csv']);
+[N_iter, N_d] = size(dc_z);
+N_freq = round(size(Sp_z,2)/N_d);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot the changing of diffusion coefficients through the iterations
 N_iter = size(dc_z,1);
@@ -83,7 +74,7 @@ sgm_f = 1; % linewidth in frequency dimension
 sgm_d = 0.1; % linewidth in diffusion coefficient dimension
 
 dc_round = roundn(dc,-1);
-Spec_grid = Par2Spectr_DOSY_nfreq(dc_round,Decay,Sp,idx_peaks, sgm_d, sgm_f, diff_v, ppm); % generate a speudo DOSY spectrum
+Spec_grid = par2spectr_DOSY(dc_round,Sp,idx_peaks, sgm_d, sgm_f, diff_v, ppm); % generate a speudo DOSY spectrum
 
 Spec_grid = Spec_grid/max(abs(Spec_grid(:)));
 Draw_DOSY_Contour(Spec_grid, dc_round, diff_v, ppm, ContourLevel, linewidth, range_ppm, range_diff);
