@@ -1,30 +1,23 @@
-%% showing the resulted spectrum for GSP
+%% showing the resulting spectrum for GSP
 clear all; close all;
 file_path = fileparts(mfilename('fullpath'));
 addpath(file_path)
 
-load('..\data\GSP\GSP_net_input.mat');
+load('.\data\GSP\GSP_net_input.mat');
 Nf = length(ppm);
 
-is_mat_file = 0;
-file_path = '..\Net_Results\GSP\';
+file_path = '.\Net_Results\GSP\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end-1).name],
-rr = median(S(:).^2)/median(max(S,[],2))*size(S,2),
-2/sum(max(S,[],2))*size(S,2),
-return
+file_folder = [file_path,SubFolderNames(end-1).name],% Find the latest folder
+
 %% Read in the result
-if is_mat_file
-    load([file_folder,'\net_output.mat']);
-else
-    dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
-    Sp_z = csvread([file_folder, '\Sp.csv']);
-    [N_iter, N_d] = size(dc_z);
-    k = N_iter;
-    dc = dc_z(k,:);
-    N_freq = round(size(Sp_z,2)/N_d);
-    Sp = reshape(Sp_z(k,:),[N_d,N_freq]);
-end
+dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
+Sp_z = csvread([file_folder, '\Sp.csv']);
+[N_iter, N_d] = size(dc_z);
+k = N_iter;
+dc = dc_z(k,:);
+N_freq = round(size(Sp_z,2)/N_d);
+Sp = reshape(Sp_z(k,:),[N_d,N_freq]);
 Decay = exp(-b(:)*dc);
 X_rec = Decay*Sp;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,7 +35,7 @@ sgm_f = 1; % linewidth in frequency dimension
 sgm_d = 0.05; % linewidth in diffusion coefficient dimension
 
 dc_round = roundn(dc,-1);
-Spec_grid = Par2Spectr_DOSY_nfreq(dc_round,Decay,Sp,idx_peaks, sgm_d, sgm_f, diff_v, ppm); % generate a speudo DOSY spectrum
+Spec_grid = par2spectr_DOSY(dc_round,Sp,idx_peaks, sgm_d, sgm_f, diff_v, ppm); % generate a speudo DOSY spectrum
 
 Spec_grid = Spec_grid/max(abs(Spec_grid(:)));
 Draw_DOSY_Contour(Spec_grid, dc_round, diff_v, ppm, ContourLevel, linewidth, range_ppm, range_diff);
