@@ -94,5 +94,3 @@ for k = 1: length(dc)
 end
 xlabel('ppm')
 
-ind_tmp = (X_rec.'-S <0);
-sum(ind_tmp(:))
