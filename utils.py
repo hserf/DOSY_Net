@@ -93,6 +93,7 @@ def draw_netoutput_DOSY(aout, Akout, step=0, save=0, FolderName=None):
 def draw_loss(i,loss_train, save=0, FolderName=None):
     plt.figure()
     plt.plot(loss_train, 'g--', label='Train loss')
+    plt.yscale('log')
     plt.legend()
     plt.title('MSE loss: step=%s' % (i))
     if save == 1:
