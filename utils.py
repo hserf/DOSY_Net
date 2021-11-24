@@ -36,10 +36,10 @@ def make_folder(BaseDir):
     subsubFolderName = str(Name_time)
     FolderName = '%s%s/' % (BaseDir,subsubFolderName)
     if not os.path.isdir(BaseDir):
-        os.mkdir(BaseDir)
-    if not os.path.isdir(BaseDir):
-        os.mkdir(BaseDir)
-    os.mkdir(FolderName)
+        os.makedirs(FolderName)
+    else:
+        os.mkdir(FolderName)
+    
     os.mkdir('%smodel/' % (FolderName))
     return FolderName
 
