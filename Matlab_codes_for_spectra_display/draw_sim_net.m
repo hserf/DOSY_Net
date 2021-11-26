@@ -29,7 +29,7 @@ Draw_DOSY_Contour(Spec_grid_rec, ak, diff_v, ff, ContourLevel);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% display the convergence curve
 N_iter = size(a_z,1);
-iter = 1:N_iter;
+iter = (0:N_iter-1)*1000;
 fidelity_loss = zeros(1,N_iter);
 for k = 1: N_iter
     dc = a_z(k,:);
