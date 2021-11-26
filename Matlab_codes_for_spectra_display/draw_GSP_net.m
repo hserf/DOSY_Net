@@ -3,10 +3,10 @@ clear all; close all;
 file_path = fileparts(mfilename('fullpath'));
 addpath(file_path)
 
-load('.\data\GSP\GSP_net_input.mat');
+load('..\data\GSP\GSP_net_input.mat');
 Nf = length(ppm);
 
-file_path = '.\Net_Results\GSP\';
+file_path = '..\Net_Results\GSP\';
 SubFolderNames = dir(file_path);
 file_folder = [file_path,SubFolderNames(end-1).name],% Find the latest folder
 
