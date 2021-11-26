@@ -20,7 +20,7 @@ N_freq = round(size(Sp_z,2)/N_d);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot the changing of diffusion coefficients through the iterations
 N_iter = size(dc_z,1);
-iter = (0:N_iter-1)*500;
+iter = (0:N_iter-1)*1000;
 figure, plot(iter, dc_z,'linewidth',1.5);
 xlabel('Iterations'); ylabel('Diffusion Coefficient (10^{-10} m^2/s)')
 %% 
