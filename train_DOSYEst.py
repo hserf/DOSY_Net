@@ -2,7 +2,7 @@
 """
 Created on Sat Apr 25 16:10:19 2020
 
-@author: Yu & Nannan & Enping
+@author: Yu
 """
 
 import time
@@ -54,6 +54,7 @@ def train(args):
     dr1_out, sp1_out, X_output, normC_out = param_gen_dosy_simple(net1_input, args.n_decay, n_freq, b_in, args.diff_range)  # 
     
     norm_label_tensor = tf.math.reduce_max(label1_output,axis=1,keepdims=True)
+    #norm_label_tensor = label1_output[:][0]
     
     with tf.name_scope('loss'):
         err_tmp = label1_output - X_output
@@ -77,12 +78,10 @@ def train(args):
     tf_log_dir = str(Folder_name)+'model'
     
     ### observed variabel #####
-    if args.save_process == True:
-        loss_train = []
-        dr_save = []
-        Sp_save = []
-    
-    # summary_writer = tf.compat.v1.summary.FileWriter(tf_log_dir, graph=sess.graph)
+    loss_train = []
+    dr_save = []
+    Sp_save = []        
+    iter_steps = []
     
     # 4. Training: optimizing the output parameters
     config = tf.compat.v1.ConfigProto()
@@ -117,6 +116,7 @@ def train(args):
                     if args.save_process:
                         dr_save = np.concatenate([dr_save,np.reshape(dr,[-1])])
                         Sp_save = np.concatenate([Sp_save,np.reshape(Sp,[-1])])
+                        iter_steps = np.append(iter_steps,i)
                     if args.display:
                         print('step: %d, total loss: %f, fidelity loss: %f' %(i + 1, gen_loss_tmp, fl))    
                         t1 = time.clock()
@@ -134,15 +134,17 @@ def train(args):
         print('Final step: %d, total loss: %f, fidelity loss: %f' %(i + 1, gen_loss_tmp, fl))    
         dr_save = np.concatenate([dr_save,np.reshape(dr,[-1])])
         Sp_save = np.concatenate([Sp_save,np.reshape(Sp,[-1])])
+        iter_steps = np.append(iter_steps,args.max_iter)
 
         utils.save_param_dosy(dr_save, Sp_save, args.n_decay, n_freq, Folder_name)
         
         if args.display:
             utils.draw_loss(i, loss_train)
-            dr_save = np.reshape(dr_save,[-1,args.n_decay])
-            plt.figure()
-            plt.plot(dr_save)
-            plt.show()
+            if args.save_process:
+                dr_save = np.reshape(dr_save,[-1,args.n_decay])
+                plt.figure()
+                plt.plot(iter_steps, dr_save)
+                plt.show()
         
         return dr, Sp
 

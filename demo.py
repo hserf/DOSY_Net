@@ -52,15 +52,5 @@ elif idx_case == 3:
     args.fidelity = 'norm-2'
     args.n_decay = 3
 
-elif idx_case == 4:
-    args.input_file = 'data/VD3PVD3/VD3PVD3_net_input.mat'
-    args.output_path = 'Net_Results/VD3PVD3/'
-    args.diff_range = []
-    args.reg_A = 0.2
-    args.max_iter = 30000
-    args.learning_rate_1 = 1e-4
-    args.learning_rate_2 = 5e-6
-    args.fidelity = 'norm-2'
-    args.n_decay = 2
 
 dr, Sp = train(args)
