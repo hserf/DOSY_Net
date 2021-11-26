@@ -1,8 +1,8 @@
 clear all; close all;
 
-load('.\data\simulation\testdataSigma0.1.mat');
-load('.\data\simulation\trueparaSigma0.1.mat')
-file_path = '.\Net_Results\sim\';
+load('..\data\simulation\testdataSigma0.1.mat');
+load('..\data\simulation\trueparaSigma0.1.mat')
+file_path = '..\Net_Results\sim\';
 SubFolderNames = dir(file_path);
 file_folder = [file_path,SubFolderNames(end).name], % Find the latest folder
 
