@@ -6,8 +6,8 @@ file_path = '..\Net_Results\sim\';
 SubFolderNames = dir(file_path);
 file_folder = [file_path,SubFolderNames(end).name], % Find the latest folder
 
-a_z = csvread([file_folder, '\diffusion_coeffs.csv']);
-A_z = csvread([file_folder, '\Sp.csv']);
+a_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
+A_z = csvread(strcat(file_folder, '\Sp.csv'));
 [N_iter, N_d] = size(a_z);
 N_freq = size(A_z,2)/N_d;
 k = N_iter;
