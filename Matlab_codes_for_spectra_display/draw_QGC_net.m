@@ -13,8 +13,8 @@ file_folder = [file_path,SubFolderNames(end).name],% Find the latest folder
 beta0 = 0.1;
 
 %% Read in the result
-dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
-Sp_z = csvread([file_folder, '\Sp.csv']);
+dc_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
+Sp_z = csvread(strcat(file_folder, '\Sp.csv'));
 [N_iter, N_d] = size(dc_z);
 N_freq = round(size(Sp_z,2)/N_d);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
