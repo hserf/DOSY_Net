@@ -8,11 +8,11 @@ Nf = length(ppm);
 
 file_path = '..\Net_Results\GSP\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end-1).name],% Find the latest folder
+file_folder = [file_path,SubFolderNames(end).name],% Find the latest folder
 
 %% Read in the result
-dc_z = csvread([file_folder, '\diffusion_coeffs.csv']);
-Sp_z = csvread([file_folder, '\Sp.csv']);
+dc_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
+Sp_z = csvread(strcat(file_folder, '\Sp.csv'));
 [N_iter, N_d] = size(dc_z);
 k = N_iter;
 dc = dc_z(k,:);
