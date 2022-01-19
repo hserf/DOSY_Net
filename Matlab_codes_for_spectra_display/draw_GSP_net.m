@@ -3,10 +3,9 @@ clear all; %close all;
 file_path = fileparts(mfilename('fullpath'));
 addpath(file_path)
 
-file_path = '..\..\for_git\Net_Results\GSP\';
-% file_path = '.\Net_Results\GSP\';
+file_path = '..\Net_Results\GSP\';
 SubFolderNames = dir(file_path);
-file_folder = strcat(file_path,SubFolderNames(end-1).name),% Find the latest folder
+file_folder = strcat(file_path,SubFolderNames(end).name),% Find the latest folder
 load(strcat(file_folder,'\data_org.mat'));
 idx_peaks = double(idx_peaks);
 
