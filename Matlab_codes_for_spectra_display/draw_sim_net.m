@@ -1,13 +1,17 @@
 clear all; close all;
 
-load('..\data\simulation\testdataSigma0.1.mat');
-load('..\data\simulation\trueparaSigma0.1.mat')
-file_path = '..\Net_Results\sim\';
+% load('.\data\simulation\testdataSigma0.1.mat');
+% load('.\data\simulation\trueparaSigma0.1.mat')
+load('..\..\for_git\data\simulation\trueparaSigma0.1.mat')
+file_path = '..\..\for_git\Net_Results\sim\';
+% file_path = '.\Net_Results\sim\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end).name], % Find the latest folder
+file_folder = strcat(file_path,SubFolderNames(end).name),% Find the latest folder
+load(strcat(file_folder,'\data_org.mat'));
+idx_peaks = double(idx_peaks);
 
-a_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
-A_z = csvread(strcat(file_folder, '\Sp.csv'));
+a_z = csvread([file_folder, '\diffusion_coeffs.csv']);
+A_z = csvread([file_folder, '\Sp.csv']);
 [N_iter, N_d] = size(a_z);
 N_freq = size(A_z,2)/N_d;
 k = N_iter;
@@ -29,7 +33,7 @@ Draw_DOSY_Contour(Spec_grid_rec, ak, diff_v, ff, ContourLevel);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% display the convergence curve
 N_iter = size(a_z,1);
-iter = (0:N_iter-1)*1000;
+iter = 1:N_iter;
 fidelity_loss = zeros(1,N_iter);
 for k = 1: N_iter
     dc = a_z(k,:);

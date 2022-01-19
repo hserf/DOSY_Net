@@ -1,26 +1,26 @@
 %% showing the resulting spectrum for QGC
 clear all; close all;
 file_path = fileparts(mfilename('fullpath'));
-
-load('..\data\QGC\QGC_net_input.mat');
-Nf = length(ppm);
+addpath(file_path)
 
 is_mat_file = 0;
-file_path = '..\Net_Results\QGC\';
+file_path = '..\..\for_git\Net_Results\QGC\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end).name],% Find the latest folder
+file_folder = strcat(file_path,SubFolderNames(end).name),% Find the latest folder
+load(strcat(file_folder,'\data_org.mat'));
+idx_peaks = double(idx_peaks);
 
 beta0 = 0.1;
-
 %% Read in the result
 dc_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
 Sp_z = csvread(strcat(file_folder, '\Sp.csv'));
 [N_iter, N_d] = size(dc_z);
 N_freq = round(size(Sp_z,2)/N_d);
+Nf = length(ppm);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot the changing of diffusion coefficients through the iterations
 N_iter = size(dc_z,1);
-iter = (0:N_iter-1)*1000;
+iter = (0:N_iter-1)*500;
 figure, plot(iter, dc_z,'linewidth',1.5);
 xlabel('Iterations'); ylabel('Diffusion Coefficient (10^{-10} m^2/s)')
 %% 
@@ -86,7 +86,7 @@ sgm_f = 3;
 nf = 1:length(ppm);
 figure,
 for k = 1: length(dc)
-    spec_k = Sp_s(k,:)*exp(-(idx_peaks'-nf).^2/2/sgm_f^2);
+    spec_k = Sp_s(k,:)*exp(-(idx_peaks(:)-nf).^2/2/sgm_f^2);
     subplot(length(dc),1,k); plot(ppm, spec_k, 'k','linewidth',1);
     set(gca,'xdir','reverse');
     xlim([range_ppm(1),range_ppm(2)]);

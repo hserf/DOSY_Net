@@ -1,14 +1,14 @@
 %% showing the resulting spectrum for GSP
-clear all; close all;
+clear all; %close all;
 file_path = fileparts(mfilename('fullpath'));
 addpath(file_path)
 
-load('..\data\GSP\GSP_net_input.mat');
-Nf = length(ppm);
-
-file_path = '..\Net_Results\GSP\';
+file_path = '..\..\for_git\Net_Results\GSP\';
+% file_path = '.\Net_Results\GSP\';
 SubFolderNames = dir(file_path);
-file_folder = [file_path,SubFolderNames(end).name],% Find the latest folder
+file_folder = strcat(file_path,SubFolderNames(end-1).name),% Find the latest folder
+load(strcat(file_folder,'\data_org.mat'));
+idx_peaks = double(idx_peaks);
 
 %% Read in the result
 dc_z = csvread(strcat(file_folder, '\diffusion_coeffs.csv'));
@@ -17,6 +17,7 @@ Sp_z = csvread(strcat(file_folder, '\Sp.csv'));
 k = N_iter;
 dc = dc_z(k,:);
 N_freq = round(size(Sp_z,2)/N_d);
+Nf = length(ppm);
 Sp = reshape(Sp_z(k,:),[N_d,N_freq]);
 Decay = exp(-b(:)*dc);
 X_rec = Decay*Sp;
