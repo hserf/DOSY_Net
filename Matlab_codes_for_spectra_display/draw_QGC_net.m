@@ -4,7 +4,7 @@ file_path = fileparts(mfilename('fullpath'));
 addpath(file_path)
 
 is_mat_file = 0;
-file_path = '..\..\for_git\Net_Results\QGC\';
+file_path = '..\Net_Results\QGC\';
 SubFolderNames = dir(file_path);
 file_folder = strcat(file_path,SubFolderNames(end).name),% Find the latest folder
 load(strcat(file_folder,'\data_org.mat'));
