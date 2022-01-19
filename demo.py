@@ -26,9 +26,14 @@ if idx_case == 1:
     
 elif idx_case == 2:
     ## Case 2: QGC
-    args.input_file = 'data/QGC/QGC_net_input.mat'
-    #args.input_file = 'data/QGC/QGC.mat'
-    args.threshold = 0.0138
+    ###############################
+    ## Two ways to import the data:
+    #(1) from a user-defined .mat file
+    #args.input_file = 'data/QGC/QGC_net_input.mat'
+    #(2) from a DOSYToolbox .mat file
+    args.input_file = 'data/QGC/QGC.mat'
+    args.threshold = 0.0138 # for DOSYToolbox data, it requires a threshold to pick the effective spectral points and remove some noise
+    ###############################
     args.output_path = 'Net_Results/QGC/'
     args.diff_range = []
     #args.diff_range = [3.0, 12.0]
@@ -41,9 +46,14 @@ elif idx_case == 2:
     
 elif idx_case == 3:
     ## Case 3: GSP
-    args.input_file = 'data/GSP/GSP_net_input.mat'
-    #args.input_file = 'data/GSP/GSP.mat'
-    args.threshold = 0.03
+    ###############################
+    ## Two ways to import the data:
+    #(1) from a user-defined .mat file
+    #args.input_file = 'data/GSP/GSP_net_input.mat'
+    #(2) from a DOSYToolbox .mat file
+    args.input_file = 'data/GSP/GSP.mat'
+    args.threshold = 0.03 # for DOSYToolbox data, it requires a threshold to pick the effective spectral points and remove some noise
+    ###############################
     args.output_path = 'Net_Results/GSP/'
     args.diff_range = []
     #args.diff_range = [1.0, 6.0]
