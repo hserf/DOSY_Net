@@ -1,10 +1,7 @@
 clear all; close all;
 
-% load('.\data\simulation\testdataSigma0.1.mat');
-% load('.\data\simulation\trueparaSigma0.1.mat')
-load('..\..\for_git\data\simulation\trueparaSigma0.1.mat')
-file_path = '..\..\for_git\Net_Results\sim\';
-% file_path = '.\Net_Results\sim\';
+load('..\data\simulation\trueparaSigma0.1.mat')
+file_path = '..\Net_Results\sim\';
 SubFolderNames = dir(file_path);
 file_folder = strcat(file_path,SubFolderNames(end).name),% Find the latest folder
 load(strcat(file_folder,'\data_org.mat'));
