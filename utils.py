@@ -11,6 +11,7 @@ import time
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import warnings
 
 
 def __clear_env():
@@ -19,7 +20,7 @@ def __clear_env():
             globals().pop(key)
 
 
-def read_mat_dosy(pathname, thr=0.01):
+def read_mat_dosy(args):
     """
     Input:
         pathname: the path of the .mat file 
@@ -30,6 +31,9 @@ def read_mat_dosy(pathname, thr=0.01):
         ppm: the chemical shift coordinates (in ppm) of the original data
         idx_peaks: the indices of the selected spectral points
     """
+    pathname = args.input_file
+    thr = args.threshold
+    
     nmrdata_save = dict()
     try:
         read_data = scio.loadmat(str(pathname))
@@ -54,7 +58,14 @@ def read_mat_dosy(pathname, thr=0.01):
             nmrdata_save['b'] = expfactor*g**2
             
             # Spectrum data
-            specdata = np.real(nmrdata['SPECTRA'][0,0])       
+            if args.data_matrix_proc == 'real':
+                specdata = np.real(nmrdata['SPECTRA'][0,0]) 
+            elif args.data_matrix_proc == 'abs':
+                specdata = np.abs(nmrdata['SPECTRA'][0,0])
+            else:
+                specdata = np.abs(nmrdata['SPECTRA'][0,0])
+                warnings.warn('Unrecognized input setting: data_matrix_proc. Apply ''abs'' instead.')
+                
             if specdata.shape[1] != ngrad:
                 specdata = np.transpose(specdata)
             specdata = specdata/specdata.max()
@@ -82,7 +93,15 @@ def read_mat_dosy(pathname, thr=0.01):
         nmrdata_save['b'] = expfactor*g**2
         
         # Spectrum data
-        specdata = nmrdata['SPECTRA']['real']
+        if args.data_matrix_proc == 'real':
+            specdata = nmrdata['SPECTRA']['real']
+        else:
+            specdata_r = nmrdata['SPECTRA']['real']
+            specdata_i = nmrdata['SPECTRA']['imag']
+            specdata = np.sqrt(specdata_r**2 + specdata_i**2)
+            if args.data_matrix_proc != 'abs':
+                warnings.warn('Unrecognized input setting: data_matrix_proc. Apply ''abs'' instead.')
+            
         if specdata.shape[1] != ngrad:
             specdata = np.transpose(specdata)
         specdata = specdata/specdata.max()
