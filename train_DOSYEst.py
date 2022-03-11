@@ -23,6 +23,7 @@ def options():
     parser.add_argument("--learning_rate_1", default=1e-4, type=float, help='Learning rate for the first 15000 steps')
     parser.add_argument("--learning_rate_2", default=5e-6, type=float, help='Learning rate after 15000 steps')
     parser.add_argument("--input_file", default='data/simulation/testdataSigma0.015.mat', help='File path of the input data')
+    parser.add_argument("--data_matrix_proc", default='real', type = str, help='real/abs')
     parser.add_argument("--threshold", default=0.01, type=float, help='Threshold for choosing the spectral points')
     parser.add_argument("--output_path", default='Net_Results/', help='Output file path')
     parser.add_argument("--diff_range", default=[], type=float, help='The range of the diffusion coefficient')
@@ -41,7 +42,7 @@ def options():
 
 def train(args):
     # 1. load data & generate the input
-    nmrdata_save = utils.read_mat_dosy(args.input_file, args.threshold)
+    nmrdata_save = utils.read_mat_dosy(args)
     label_data0 = nmrdata_save['S']
     b = nmrdata_save['b']
     n_grad = b.shape[1]
