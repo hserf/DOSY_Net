@@ -33,6 +33,7 @@ elif idx_case == 2:
     #(2) from a DOSYToolbox .mat file
     args.input_file = 'data/QGC/QGC.mat'
     args.threshold = 0.0138 # for DOSYToolbox data, it requires a threshold to pick the effective spectral points and remove some noise
+    args.data_matrix_proc = 'real' # Take the real part of the data (default). If the phases of the spectral data are not adjusted, then 'abs' is suggested.
     ###############################
     args.output_path = 'Net_Results/QGC/'
     args.diff_range = []
@@ -53,6 +54,7 @@ elif idx_case == 3:
     #(2) from a DOSYToolbox .mat file
     args.input_file = 'data/GSP/GSP.mat'
     args.threshold = 0.03 # for DOSYToolbox data, it requires a threshold to pick the effective spectral points and remove some noise
+    args.data_matrix_proc = 'real' # Take the real part of the data (default). If the phases of the spectral data are not adjusted, then 'abs' is suggested.
     ###############################
     args.output_path = 'Net_Results/GSP/'
     args.diff_range = []
